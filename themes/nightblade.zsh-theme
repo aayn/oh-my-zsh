@@ -13,7 +13,7 @@ function put_spacing() {
   local virt=$(virtualenv_info)
 
   local termwidth
-  (( termwidth = ${COLUMNS} - 3- ${#HOST} - ${#$(get_pwd)} - ${git} - ${#virt} - 10 ))
+  (( termwidth = ${COLUMNS} - 3 - ${#HOST} - ${#$(get_pwd)} - ${git} - ${#virt} - 10 ))
 
   local spacing=""
   for i in {1..$termwidth}; do
@@ -36,5 +36,8 @@ function git_prompt_info() {
   echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX$(current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
-PROMPT='$fg[cyan]%m: $fg[red]$(get_pwd)$(put_spacing) $(git_prompt_info)
-$reset_color→ '
+PROMPT='%{$reset_color%}%{$fg[red]%}%m%{$reset_color%}%{$fg[red]%}: %{$reset_color%}%{$fg[cyan]%}%0~%{$reset_color%} $(put_spacing)$(git_prompt_info)
+%{$fg[cyan]%}→%{$reset_color%}  '
+
+# PROMPT='$fg[cyan]%m: $fg[red]$(get_pwd) $(git_prompt_info)
+# $reset_color→ %{$reset_color%}'
